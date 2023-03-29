@@ -10,6 +10,10 @@ namespace Projekt.Models
     public class DBContext : DbContext
     {
         public DbSet<Worker> workers { get ; set; }
+        public DbSet<Suppliers> suppliers { get; set; }
+        public DbSet<Shifts> shifts { get; set; }
+        public DbSet<Products> products { get; set; }
+        public DbSet<Departments> departments { get; set; }
         private string DbPath;
         public DBContext() {
             var folder = Environment.SpecialFolder.LocalApplicationData;
