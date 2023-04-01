@@ -10,8 +10,8 @@ namespace Projekt.Models
     {
         public int Id { get; set; } 
         public string Type { get; set; }
-        public int Shours { get; set; }
-        public int Fhours { get; set; }
+        public string Shours { get; set; }
+        public string Fhours { get; set; }
         }
     }
 
