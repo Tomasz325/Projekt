@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Projekt.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,34 @@ namespace Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        DBContext context = new DBContext();
+        public async Task<ICollection<Worker>> ListBrands()
+        {
+            try
+            {
+                return (ICollection<Worker>)await context.Workers.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+       
+        private async Task Refresh()
+        {
+            var list = await context.Workers.ToListAsync();
+            DataGridBrand.ItemsSource = list;
+        }
+        private async void Reverse(object sender, RoutedEventArgs e)
+            {
+            await Refresh();
+            }
         public MainWindow()
         {
             InitializeComponent();
+            RefBut.Click += Reverse;
+
         }
     }
 }
