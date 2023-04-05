@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Projekt.Crud_Services;
 using Projekt.Models;
 using System;
 using System.Collections.Generic;
@@ -22,34 +23,82 @@ namespace Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        DBContext context = new DBContext();
-        public async Task<ICollection<Worker>> ListBrands()
-        {
-            try
-            {
-                return (ICollection<Worker>)await context.Workers.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-       
-        private async Task Refresh()
-        {
-            var list = await context.Workers.ToListAsync();
-            DataGridBrand.ItemsSource = list;
-        }
-        private async void Reverse(object sender, RoutedEventArgs e)
-            {
-            await Refresh();
-            }
+       private readonly WorkerCrudServices workercrudservice;
+        
         public MainWindow()
         {
             InitializeComponent();
-            RefBut.Click += Reverse;
+           workercrudservice = new WorkerCrudServices();
+            RefBut.Click += ButtonRefresh;
+            AddBut.Click += ButtonAdd;
+            DelBut.Click += ButtonDelete;
+            SerBut.Click += ButtonSearch;
+            Updbut.Click += ButtonUpdate;
+        }
+        private async Task ListBrands()
+        {
+            var brandList = await workercrudservice.ListBrands();
+            DataGridBrand.ItemsSource = brandList.ToList();
+        }
+        private async void ButtonRefresh(object sender, RoutedEventArgs e)
+        {
+            var list = (await workercrudservice.ListBrands()).ToList();
+            DataGridBrand.ItemsSource = list;
+        }
+        private async void ButtonAdd(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+               await workercrudservice.AddBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                ButtonRefresh(sender, e);
+                throw new Exception("Data Added");
 
+            }
+            catch (Exception ex) {MessageBox.Show(ex.Message); }
+            finally {
+                txtWorkerID.Clear();
+                txtWorker.Clear(); 
+                txtLastname.Clear();
+                txtAge.Clear();
+                txtAddress.Clear();
+                txtPostalCode.Clear();
+                txtWorkerID.Focus();
+                    }
+
+        }
+        private async void ButtonDelete(object sender, RoutedEventArgs e)
+        {
+            try {
+                await workercrudservice.DeleteBrand(Int32.Parse(txtWorkerID.Text));
+                throw new Exception("Data Removed");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally 
+            { 
+                await ListBrands(); 
+            }
+
+            }
+        private async void ButtonUpdate(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await workercrudservice.UpdateBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                throw new Exception("Data Updated");
+                    }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally { await ListBrands(); }
+        }
+        private async void ButtonSearch(object sender, RoutedEventArgs e)
+        {
+            var search = await workercrudservice.SearchBrandByName(txtWorker.Text);
+            DataGridBrand.ItemsSource = search.ToList();
         }
     }
 }

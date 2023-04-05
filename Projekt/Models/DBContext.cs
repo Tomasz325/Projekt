@@ -15,14 +15,12 @@ namespace Projekt.Models
         public DbSet<Products> Products { get; set; }
         public DbSet<Departments> Departments { get; set; }
         private string DbPath;
-        public DBContext() {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "Supermarket.db");
+        public DBContext(DbContextOptions options): base (options) {
+            
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -68,5 +66,7 @@ namespace Projekt.Models
                 new Departments() { Id = 4, Type = "Mięso i wędliny", Liability = "Krystyna Kowalska" }
                 );
         }
+
+        
     }   
 }

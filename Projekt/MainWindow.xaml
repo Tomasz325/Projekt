@@ -7,10 +7,170 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25"></ColumnDefinition>
+            <ColumnDefinition Width="28.261"></ColumnDefinition>
+            <ColumnDefinition Width="321.739"/>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="270"></ColumnDefinition>
+            <ColumnDefinition Width="25"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="217*"></RowDefinition>
+            <RowDefinition Height="167*"/>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="2" Grid.ColumnSpan="2" Margin="0,167,0,0" Grid.RowSpan="2"
+            />
+
+        <StackPanel
+            Grid.Column="1"
+            Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+
+
+                <Label
+                    Content="Worker ID"
+                    Grid.Row="0"
+                     Grid.Column="0" >
+                </Label>
+
+                <TextBox      
+                    x:Name="txtWorkerID"
+                    Grid.Row="0"
+                     Grid.Column="1"
+                 />
+
+
+                <Label
+                    Content="Worker name"
+                    Grid.Row="2"
+                     Grid.Column="0" >
+                </Label>
+
+                <TextBox      
+                    x:Name="txtWorker"
+                    Grid.Row="2"
+                     Grid.Column="2"
+                 />
+
+
+                <Label
+                    Content="Worker Lastname"
+                    Grid.Row="4"
+                     Grid.Column="0" >
+                </Label>
+
+                <TextBox      
+                    x:Name="txtLastname"
+                    Grid.Row="4"
+                     Grid.Column="2"
+                 />
+                <Label
+                    Content="Worker Age"
+                    Grid.Row="5"
+                     Grid.Column="0" >
+                </Label>
+                <TextBox      
+                    x:Name="txtAge"
+                    Grid.Row="5"
+                     Grid.Column="2"
+                 />
+                <Label
+                    Content="Worker Address"
+                    Grid.Row="6"
+                     Grid.Column="0" Margin="0,25,0,-25" >
+                </Label>
+                <TextBox      
+                    x:Name="txtAddress"
+                    Grid.Row="6"
+                     Grid.Column="2" Margin="0,25,0,-25"
+                 />
+                <Label
+                    Content="Worker PostalCode"
+                    Grid.Row="5"
+                     Grid.Column="0" Margin="0,50,0,-50" />
+                <TextBox      
+                    x:Name="txtPostalCode"
+                    Grid.Row="5"
+                     Grid.Column="1" Margin="0,56,0,-56"
+                 />
+                <!--Button-->
+                <StackPanel
+                     Grid.Row="5"
+                     Grid.ColumnSpan="2"
+                     Orientation="Horizontal" Margin="0,101,0,-101"
+                    >
+
+                    <Button
+                        Width="50"
+                        Content="Add"
+                        x:Name="AddBut"
+                        />
+
+                    <Button
+                        Width="50"
+                        Content="Update"
+                        x:Name="Updbut"
+                        Margin="10 0 10 0"
+                        />
+                    <Button
+                        Width="50"
+                        Content="Search"
+                        x:Name="SerBut"
+                        Margin="10 0 10 0"
+                        />
+                    <Button
+                        Width="50"
+                        Content="Delete"
+                        x:Name="DelBut"
+                        Margin="10 0 10 0"
+                        />
+                    <Button
+                        Width="50"
+                        Content="List"
+                        x:Name="RefBut"
+                        Margin="10 0 10 0"
+                      
+                        />
+                </StackPanel>
+
+
+            </Grid>
+
+        </StackPanel>
+
         <DataGrid
+            Grid.Column="4"
+            Grid.Row="1"
             x:Name="DataGridBrand"
-            Margin="5,5,5,5" Grid.RowSpan="2"></DataGrid>
-        <Button x:Name="RefBut" Margin="0,381,642,0">Refresh</Button>
+            Margin="5,5,5,5" Grid.RowSpan="2">
+
+
+        </DataGrid>
+
     </Grid>
-    
+
 </Window>
