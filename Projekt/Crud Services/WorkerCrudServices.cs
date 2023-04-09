@@ -106,6 +106,10 @@ namespace Projekt.Crud_Services
             {
                 Worker br = await SearchBrandbyID(id);
                 br.Name = name;
+                br.Lastname = lastname;
+                br.Age = age;
+                br.Address = address;
+                br.Postalcode = postalcode;
                 return await _crudServices.Update(br);
 
 
