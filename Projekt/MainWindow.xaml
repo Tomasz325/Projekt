@@ -80,7 +80,7 @@
                 <Label
                     Content="Worker Lastname"
                     Grid.Row="4"
-                     Grid.Column="0" >
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,228,0" >
                 </Label>
 
                 <TextBox      
@@ -91,7 +91,7 @@
                 <Label
                     Content="Worker Age"
                     Grid.Row="5"
-                     Grid.Column="0" >
+                     Grid.Column="0" Margin="0,0,0,-12" >
                 </Label>
                 <TextBox      
                     x:Name="txtAge"
@@ -111,11 +111,11 @@
                 <Label
                     Content="Worker PostalCode"
                     Grid.Row="5"
-                     Grid.Column="0" Margin="0,50,0,-50" />
+                     Grid.Column="0" Margin="0,50,228,-50" Grid.ColumnSpan="2" />
                 <TextBox      
                     x:Name="txtPostalCode"
                     Grid.Row="5"
-                     Grid.Column="1" Margin="0,56,0,-56"
+                     Grid.Column="1" Margin="10,56,0,-56"
                  />
                 <!--Button-->
                 <StackPanel
