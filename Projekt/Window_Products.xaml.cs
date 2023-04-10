@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Projekt.Crud_Services;
-using Projekt.Models;
+﻿using Projekt.Crud_Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,48 +11,46 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Projekt
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy Window_Products.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Window_Products : Window
     {
-        private readonly WorkerCrudServices workercrudservice;
-
-        public MainWindow()
+        private readonly ProductCrudServices productcrudservices;
+        public Window_Products()
         {
             InitializeComponent();
-            workercrudservice = new WorkerCrudServices();
+            productcrudservices = new ProductCrudServices();
             RefBut.Click += ButtonRefresh;
             AddBut.Click += ButtonAdd;
             DelBut.Click += ButtonDelete;
             SerBut.Click += ButtonSearch;
             Updbut.Click += ButtonUpdate;
             ButShift.Click += Button_Shifts;
-            ButSupplier.Click += Button_Suppliers; 
-            ButProduct.Click += Button_Products;
+            ButSupplier.Click += Button_Suppliers;
+            ButWorker.Click += Button_Workers;
             ButDepartament.Click += Button_Departaments;
             ButQuit.Click += Button_Quit;
         }
         private async Task ListBrands()
         {
-            var brandList = await workercrudservice.ListBrands();
+            var brandList = await productcrudservices.ListBrands();
             DataGridBrand.ItemsSource = brandList.ToList();
         }
         private async void ButtonRefresh(object sender, RoutedEventArgs e)
         {
-            var list = (await workercrudservice.ListBrands()).ToList();
+            var list = (await productcrudservices.ListBrands()).ToList();
             DataGridBrand.ItemsSource = list;
         }
         private async void ButtonAdd(object sender, RoutedEventArgs e)
         {
             try
             {
-                await workercrudservice.AddBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                await productcrudservices.AddBrand(Int32.Parse(txtProductID.Text), txtProductName.Text, txtProductType.Text, Double.Parse(txtProductQuantity.Text), Double.Parse(txtProductPrice.Text) );
                 ButtonRefresh(sender, e);
                 throw new Exception("Data Added");
 
@@ -62,13 +58,12 @@ namespace Projekt
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally
             {
-                txtWorkerID.Clear();
-                txtWorker.Clear();
-                txtLastname.Clear();
-                txtAge.Clear();
-                txtAddress.Clear();
-                txtPostalCode.Clear();
-                txtWorkerID.Focus();
+                txtProductID.Clear();
+                txtProductName.Clear();
+                txtProductType.Clear();
+                txtProductQuantity.Clear();
+                txtProductPrice.Clear();
+                txtProductID.Focus();
             }
 
         }
@@ -76,7 +71,7 @@ namespace Projekt
         {
             try
             {
-                await workercrudservice.DeleteBrand(Int32.Parse(txtWorkerID.Text));
+                await productcrudservices.DeleteBrand(Int32.Parse(txtProductID.Text));
                 throw new Exception("Data Removed");
             }
             catch (Exception ex)
@@ -93,7 +88,7 @@ namespace Projekt
         {
             try
             {
-                await workercrudservice.UpdateBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                await productcrudservices.UpdateBrand(Int32.Parse(txtProductID.Text), txtProductName.Text, txtProductType.Text, Double.Parse(txtProductQuantity.Text), Double.Parse(txtProductPrice.Text) );
                 throw new Exception("Data Updated");
             }
             catch (Exception ex)
@@ -104,7 +99,7 @@ namespace Projekt
         }
         private async void ButtonSearch(object sender, RoutedEventArgs e)
         {
-            var search = await workercrudservice.SearchBrandByName(txtWorker.Text);
+            var search = await productcrudservices.SearchBrandByName(txtProductName.Text);
             DataGridBrand.ItemsSource = search.ToList();
         }
         private void Button_Shifts(object sender, RoutedEventArgs e)
@@ -121,10 +116,10 @@ namespace Projekt
             suppliers.Show();
             this.Close();
         }
-        private void Button_Products(object sender, RoutedEventArgs e)
+        private void Button_Workers(object sender, RoutedEventArgs e)
         {
-            Window_Products product = new Window_Products();
-            product.Show();
+            MainWindow worker = new MainWindow();
+            worker.Show();
             this.Close();
         }
         private void Button_Departaments(object sender, RoutedEventArgs e)
@@ -137,5 +132,9 @@ namespace Projekt
         {
             Application.Current.Shutdown();
         }
+
     }
 }
+
+    
+

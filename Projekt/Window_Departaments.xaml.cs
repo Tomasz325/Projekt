@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Projekt.Crud_Services;
-using Projekt.Models;
+﻿using Projekt.Crud_Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,48 +11,46 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Projekt
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy Window_Departaments.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Window_Departaments : Window
     {
-        private readonly WorkerCrudServices workercrudservice;
-
-        public MainWindow()
+        private readonly DepartamentCrudServices departamenttcrudservice;
+        public Window_Departaments()
         {
             InitializeComponent();
-            workercrudservice = new WorkerCrudServices();
+            departamenttcrudservice = new DepartamentCrudServices();
             RefBut.Click += ButtonRefresh;
             AddBut.Click += ButtonAdd;
             DelBut.Click += ButtonDelete;
             SerBut.Click += ButtonSearch;
             Updbut.Click += ButtonUpdate;
-            ButShift.Click += Button_Shifts;
-            ButSupplier.Click += Button_Suppliers; 
+            ButWork.Click += Button_Workers;
+            ButSupplier.Click += Button_Suppliers;
             ButProduct.Click += Button_Products;
-            ButDepartament.Click += Button_Departaments;
+            ButShift.Click += Button_Shifts;
             ButQuit.Click += Button_Quit;
         }
         private async Task ListBrands()
         {
-            var brandList = await workercrudservice.ListBrands();
+            var brandList = await departamenttcrudservice.ListBrands();
             DataGridBrand.ItemsSource = brandList.ToList();
         }
         private async void ButtonRefresh(object sender, RoutedEventArgs e)
         {
-            var list = (await workercrudservice.ListBrands()).ToList();
+            var list = (await departamenttcrudservice.ListBrands()).ToList();
             DataGridBrand.ItemsSource = list;
         }
         private async void ButtonAdd(object sender, RoutedEventArgs e)
         {
             try
             {
-                await workercrudservice.AddBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                await departamenttcrudservice.AddBrand(Int32.Parse(txtDepartamentID.Text), txtDepartamentType.Text, txtLiability.Text);
                 ButtonRefresh(sender, e);
                 throw new Exception("Data Added");
 
@@ -62,13 +58,10 @@ namespace Projekt
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally
             {
-                txtWorkerID.Clear();
-                txtWorker.Clear();
-                txtLastname.Clear();
-                txtAge.Clear();
-                txtAddress.Clear();
-                txtPostalCode.Clear();
-                txtWorkerID.Focus();
+                txtDepartamentID.Clear();
+                txtDepartamentType.Clear();
+                txtLiability.Clear();
+                txtDepartamentID.Focus();
             }
 
         }
@@ -76,7 +69,7 @@ namespace Projekt
         {
             try
             {
-                await workercrudservice.DeleteBrand(Int32.Parse(txtWorkerID.Text));
+                await departamenttcrudservice.DeleteBrand(Int32.Parse(txtDepartamentID.Text));
                 throw new Exception("Data Removed");
             }
             catch (Exception ex)
@@ -93,7 +86,7 @@ namespace Projekt
         {
             try
             {
-                await workercrudservice.UpdateBrand(Int32.Parse(txtWorkerID.Text), txtWorker.Text, txtLastname.Text, Int32.Parse(txtAge.Text), txtAddress.Text, txtPostalCode.Text);
+                await departamenttcrudservice.UpdateBrand(Int32.Parse(txtDepartamentID.Text), txtDepartamentType.Text, txtLiability.Text);
                 throw new Exception("Data Updated");
             }
             catch (Exception ex)
@@ -104,14 +97,14 @@ namespace Projekt
         }
         private async void ButtonSearch(object sender, RoutedEventArgs e)
         {
-            var search = await workercrudservice.SearchBrandByName(txtWorker.Text);
+            var search = await departamenttcrudservice.SearchBrandByName(txtDepartamentType.Text);
             DataGridBrand.ItemsSource = search.ToList();
         }
-        private void Button_Shifts(object sender, RoutedEventArgs e)
+        private void Button_Workers(object sender, RoutedEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            Window_Shifts shifts = new Window_Shifts();
-            shifts.Show();
+            Window_Departaments department = new Window_Departaments();
+            MainWindow workers = new MainWindow();
+            workers.Show();
             this.Close();
 
         }
@@ -127,15 +120,18 @@ namespace Projekt
             product.Show();
             this.Close();
         }
-        private void Button_Departaments(object sender, RoutedEventArgs e)
+        private void Button_Shifts(object sender, RoutedEventArgs e)
         {
-            Window_Departaments departament = new Window_Departaments();
-            departament.Show();
+            Window_Shifts shift  = new Window_Shifts();
+            shift.Show();
             this.Close();
         }
         private void Button_Quit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
     }
 }
+    
+
