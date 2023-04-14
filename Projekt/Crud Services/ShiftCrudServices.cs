@@ -17,7 +17,15 @@ namespace Projekt.Crud_Services
         {
             _crudServices = new GenericDataService<Shifts>(new CrudFactory());
         }
-
+        /// <summary>
+        /// Funckja służąca do dodania danych w tabeli Shifts
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="Type"></param>
+        /// <param name="Shours"></param>
+        /// <param name="Fhours"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<Shifts> AddBrand(int id, string Type, string Shours, string Fhours)
         {
             try
@@ -45,7 +53,12 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do usuwania danych w tabeli Shifts
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public async Task<bool> DeleteBrand(int id)
         {
             try
@@ -62,6 +75,10 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
+        /// <summary>
+        /// Funckja pobierająca dane z Shifts
+        /// </summary>
+        /// <returns></returns>
         public async Task<ICollection<Shifts>> ListBrands()
         {
 
@@ -70,6 +87,10 @@ namespace Projekt.Crud_Services
 
 
         }
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po ID
+        /// </summary>
+        /// <returns></returns>
         public Task<Shifts> SearchBrandbyID(int ID)
         {
             try
@@ -82,7 +103,10 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po Name
+        /// </summary>
+        /// <returns></returns>
         public async Task<ICollection<Shifts>> SearchBrandByName(string Type)
         {
             try
@@ -97,7 +121,10 @@ namespace Projekt.Crud_Services
 
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do aktualizacji danych w tabeli Shifts
+        /// </summary>
+        /// <returns></returns>
         public async Task<Shifts> UpdateBrand(int id, string Type , string Shours , string Fhours)
         {
             try

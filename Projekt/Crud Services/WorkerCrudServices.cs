@@ -1,4 +1,5 @@
-﻿using Projekt.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Projekt.Models;
 using Projekt.Services;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,10 @@ namespace Projekt.Crud_Services
         {
             _crudServices = new GenericDataService<Worker>(new CrudFactory());
         }
-
+        /// <summary>
+        /// Funckja służąca do dodania danych w tabeli Worker
+        /// </summary>
+        /// <returns></returns>
         public async Task<Worker> AddBrand(int id, string name, string lastname , int age, string address, string postalcode)
         {
             try
@@ -47,7 +51,10 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do usuwania danych w tabeli Worker
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> DeleteBrand(int id)
         {
             try
@@ -64,14 +71,22 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
+        /// <summary>
+        /// Funckja pobierająca dane z Worker(w relacji z Departaments i Shifts)
+        /// </summary>
+        /// <returns></returns>
         public async Task<ICollection<Worker>> ListBrands()
         {
-            
-            
-         return (ICollection<Worker>)await _crudServices.GetAll();
-            
-           
+            var context = new CrudFactory();
+
+            return (ICollection<Worker>)await context.CreateDbContext().Workers.Include(w => w.shifts).Include(w => w.departments).ToListAsync();
+
+
         }
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po ID
+        /// </summary>
+        /// <returns></returns>
         public Task<Worker> SearchBrandbyID(int ID)
         {
             try
@@ -84,7 +99,10 @@ namespace Projekt.Crud_Services
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po Name
+        /// </summary>
+        /// <returns></returns>
         public async Task<ICollection<Worker>> SearchBrandByName(string name)
         {
             try
@@ -99,7 +117,10 @@ namespace Projekt.Crud_Services
 
             }
         }
-
+        /// <summary>
+        /// Funckja służąca do aktualizacji danych w tabeli Worker
+        /// </summary>
+        /// <returns></returns>
         public async Task<Worker> UpdateBrand(int id, string name, string lastname, int age, string address, string postalcode)
         {
             try

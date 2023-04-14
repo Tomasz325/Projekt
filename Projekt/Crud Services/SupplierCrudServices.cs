@@ -1,4 +1,5 @@
-﻿using Projekt.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Projekt.Models;
 using Projekt.Services;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,11 @@ namespace Projekt.Crud_Services
     {
         _crudServices = new GenericDataService<Suppliers>(new CrudFactory());
     }
-
-    public async Task<Suppliers> AddBrand(int id, string Name, string Type, string Carsize)
+        /// <summary>
+        /// Funckja służąca do dodania danych w tabeli Suppliers
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Suppliers> AddBrand(int id, string Name, string Type, string Carmodel)
     {
         try
         {
@@ -31,7 +35,7 @@ namespace Projekt.Crud_Services
                     Id = id,
                     Name = Name,
                     Type = Type,
-                    Carsize = Carsize
+                    Carmodel = Carmodel
 
                 };
                 return await _crudServices.Create(br);
@@ -43,8 +47,29 @@ namespace Projekt.Crud_Services
             throw new Exception(ex.Message);
         }
     }
+        /// <summary>
+        /// Dodaję produkt do tabeli Suppliers
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<Suppliers> AddProduct(int id, int productId)
+        {
+            var context = new CrudFactory().CreateDbContext();
+            var supplier = await context.Suppliers.FindAsync(id);
+            var product = await context.Products.FindAsync(productId);
+            if (product == null) { throw new Exception("Podanego produktu nie ma w bazie"); }
+            supplier.products.Add(product);
+            await context.SaveChangesAsync();
+            return supplier;
 
-    public async Task<bool> DeleteBrand(int id)
+        }
+        /// <summary>
+        /// Funckja służąca do usuwania danych w tabeli Suppliers
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> DeleteBrand(int id)
     {
         try
         {
@@ -60,15 +85,43 @@ namespace Projekt.Crud_Services
             throw new Exception(ex.Message);
         }
     }
-    public async Task<ICollection<Suppliers>> ListBrands()
+        /// <summary>
+        /// Usuwa produkt z tabelii Suppliers
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ICollection<Suppliers>> DeleteProduct(int id, int productId)
+        {
+            var context = new CrudFactory().CreateDbContext();
+            var supplier = await context.Suppliers.Include(s => s.products).FirstAsync(s => s.Id == id);
+            var products = await context.Products.FindAsync(productId);
+            var product = supplier.products.FirstOrDefault(p => p.Id == productId);
+            if (product == null) { throw new Exception("Podanego produktu nie ma w bazie"); }
+            supplier.products.Remove(product);
+            await context.SaveChangesAsync();
+            return await context.Suppliers.ToListAsync();
+        }
+        /// <summary>
+        /// Funckja pobierająca dane z Suppliers(w relacji z Products)
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ICollection<Suppliers>> ListBrands()
     {
 
 
-        return (ICollection<Suppliers>)await _crudServices.GetAll();
+            var context = new CrudFactory();
+
+            return (ICollection<Suppliers>)await context.CreateDbContext().Suppliers.Include(s => s.products).ToListAsync();
 
 
-    }
-    public Task<Suppliers> SearchBrandbyID(int ID)
+        }
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po ID
+        /// </summary>
+        /// <returns></returns>
+        public Task<Suppliers> SearchBrandbyID(int ID)
     {
         try
         {
@@ -80,8 +133,11 @@ namespace Projekt.Crud_Services
             throw new Exception(ex.Message);
         }
     }
-
-    public async Task<ICollection<Suppliers>> SearchBrandByName(string Type)
+        /// <summary>
+        /// Funckja służąca do wyszukania danych po Name
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ICollection<Suppliers>> SearchBrandByName(string Type)
     {
         try
         {
@@ -95,15 +151,18 @@ namespace Projekt.Crud_Services
 
         }
     }
-
-    public async Task<Suppliers> UpdateBrand(int id, string Name, string Type, string Carsize)
+        /// <summary>
+        /// Funckja służąca do aktualizacji danych w tabeli Suppliers
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Suppliers> UpdateBrand(int id, string Name, string Type, string Carmodel)
     {
         try
         {
             Suppliers br = await SearchBrandbyID(id);
             br.Name = Name;
             br.Type = Type;
-            br.Carsize = Carsize;
+            br.Carmodel = Carmodel;
             return await _crudServices.Update(br);
 
 

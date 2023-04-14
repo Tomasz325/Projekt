@@ -14,5 +14,15 @@ namespace Projekt.Models
         public int Age { get; set; }
         public string Address { get; set; }
         public string Postalcode { get; set; }
+
+        public ISet<Departments> departments { get; set; }
+        public Worker() 
+        { 
+            departments = new HashSet<Departments>();
+            shifts = new HashSet<Shifts>();
+        
+        }
+        public ISet<Shifts> shifts { get; set; }
+
     }
 }

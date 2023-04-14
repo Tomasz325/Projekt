@@ -35,22 +35,23 @@ namespace Projekt
             ButProduct.Click += Button_Products;
             ButDepartament.Click += Button_Departaments;
             ButQuit.Click += Button_Quit;
+            ProBut.Click += AddProduct;
+            RemPro.Click += DeleteProduct;
         }
         private async Task ListBrands()
         {
             var brandList = await suppliercrudservices.ListBrands();
-            DataGridBrand.ItemsSource = brandList.ToList();
+            DataGridBrand.ItemsSource = brandList.ToList().Select(s => new { Id = s.Id, Name = s.Name, Type = s.Type, Carmodel = s.Carmodel, products = String.Join(", ", s.products.Select(p => $"{p.Name} {p.Type} {p.Price}"+" "+"zł")) });
         }
         private async void ButtonRefresh(object sender, RoutedEventArgs e)
         {
-            var list = (await suppliercrudservices.ListBrands()).ToList();
-            DataGridBrand.ItemsSource = list;
+            await ListBrands();
         }
         private async void ButtonAdd(object sender, RoutedEventArgs e)
         {
             try
             {
-                await suppliercrudservices.AddBrand(Int32.Parse(txtSupplierID.Text), txtSupplierName.Text, txtSType.Text, txtSCarsize.Text);
+                await suppliercrudservices.AddBrand(Int32.Parse(txtSupplierID.Text), txtSupplierName.Text, txtSType.Text, txtSCarmodel.Text);
                 ButtonRefresh(sender, e);
                 throw new Exception("Data Added");
 
@@ -61,9 +62,35 @@ namespace Projekt
                 txtSupplierID.Clear();
                 txtSupplierName.Clear();
                 txtSType.Clear();
-                txtSCarsize.Clear();
+                txtSCarmodel.Clear();
                 txtSupplierID.Focus();
             }
+
+        }
+        private async void AddProduct(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await suppliercrudservices.AddProduct(Int32.Parse(txtSupplierID.Text), Int32.Parse(txtProductID.Text));
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally
+            {
+                ListBrands();
+            }
+        }
+        private async void DeleteProduct(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await suppliercrudservices.DeleteProduct(Int32.Parse(txtSupplierID.Text), Int32.Parse(txtProductID.Text));
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally
+            {
+                ListBrands();
+            }
+
 
         }
         private async void ButtonDelete(object sender, RoutedEventArgs e)
@@ -87,7 +114,7 @@ namespace Projekt
         {
             try
             {
-                await suppliercrudservices.UpdateBrand(Int32.Parse(txtSupplierID.Text), txtSupplierName.Text, txtSType.Text, txtSCarsize.Text);
+                await suppliercrudservices.UpdateBrand(Int32.Parse(txtSupplierID.Text), txtSupplierName.Text, txtSType.Text, txtSCarmodel.Text);
                 throw new Exception("Data Updated");
             }
             catch (Exception ex)

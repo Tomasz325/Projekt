@@ -8,9 +8,9 @@
         Title="Window_Suppliers" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="25"></ColumnDefinition>
-            <ColumnDefinition Width="28.261"></ColumnDefinition>
-            <ColumnDefinition Width="321.739"/>
+            <ColumnDefinition Width="2"></ColumnDefinition>
+            <ColumnDefinition Width="0"></ColumnDefinition>
+            <ColumnDefinition Width="373"/>
             <ColumnDefinition Width="10"></ColumnDefinition>
             <ColumnDefinition Width="270"></ColumnDefinition>
             <ColumnDefinition Width="25"></ColumnDefinition>
@@ -20,19 +20,19 @@
         <Grid.RowDefinitions>
 
             <RowDefinition Height="25"></RowDefinition>
-            <RowDefinition Height="187*"></RowDefinition>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="2.017"></RowDefinition>
         </Grid.RowDefinitions>
 
 
         <StackPanel
             Grid.Column="1"
-            Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,0,0"
+            Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10,0,-8"
             />
 
         <StackPanel
-            Grid.Row="1" Grid.ColumnSpan="3" Margin="12,0,10,0" Height="379" VerticalAlignment="Top" Grid.RowSpan="2">
+            Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,10,0" Height="379" VerticalAlignment="Center" Grid.Column="1" RenderTransformOrigin="0.416,0.703">
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -53,55 +53,65 @@
                 <Label
                     Content="Supplier ID"
                     Grid.Row="0"
-                     Grid.Column="0" >
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,245,0" >
                 </Label>
 
                 <TextBox      
                     x:Name="txtSupplierID"
                     Grid.Row="0"
-                     Grid.Column="1"
+                     Grid.Column="1" Margin="13,0,-13,0"
                  />
 
 
                 <Label
                     Content="Supplier Name"
                     Grid.Row="2"
-                     Grid.Column="0" >
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,245,0" >
                 </Label>
 
                 <TextBox      
                     x:Name="txtSupplierName"
                     Grid.Row="2"
-                     Grid.Column="2"
+                     Grid.Column="1" Margin="13,0,-13,0"
                  />
 
 
                 <Label
                     Content="Supplier Type"
                     Grid.Row="4"
-                     Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,228,0" >
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="5,0,223,0" >
                 </Label>
 
                 <TextBox      
                     x:Name="txtSType"
                     Grid.Row="4"
-                     Grid.Column="2"
+                     Grid.Column="1" Margin="13,0,-13,0"
                  />
                 <Label
-                    Content="Supplier Carsize"
+                    Content="Supplier Carmodel"
                     Grid.Row="5"
-                     Grid.Column="0" Margin="0,15,0,-27" >
+                     Grid.Column="0" Margin="0,15,240,-27" Grid.ColumnSpan="2" >
                 </Label>
                 <TextBox      
-                    x:Name="txtSCarsize"
-                    Grid.Row="5" Margin="0,15,0,-15" Grid.Column="1"
+                    x:Name="txtSCarmodel"
+                    Grid.Row="5" Margin="13,15,-13,-15" Grid.Column="1"
                  />
+                <Label
+                    Content="Product ID"
+                    Grid.Row="5"
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="10,57,218,-57" >
+                </Label>
+                <TextBox
+                    x:Name="txtProductID"
+                    Grid.Row="5"
+                    Grid.Column="1" Margin="13,57,-13,-57"
+                    ></TextBox>
 
                 <!--Button-->
                 <StackPanel
                      Grid.Row="5"
                      Grid.ColumnSpan="2"
-                     Orientation="Horizontal" Margin="0,78,0,-78"
+                     Orientation="Horizontal" Margin="10,108,-10,-108"
                     >
 
                     <Button
@@ -140,30 +150,38 @@
 
                 <Button
                     Width="50"
-                    Margin="5,213,45,-213"
+                    Margin="5,228,45,-228"
                     Content="Workers"
                     x:Name="ButWork"
                     RenderTransformOrigin="0.233,0.615" Grid.Row="5" />
                 <Button
                     Content="Shifts"
                     x:Name="ButShift"
-                    Margin="80,213,210,-213" Grid.Row="5" Grid.ColumnSpan="2"
+                    Margin="80,228,210,-228" Grid.Row="5" Grid.ColumnSpan="2"
                     />
                 <Button
                     Content="Products"
                     x:Name="ButProduct"
                     RenderTransformOrigin="0.316,0.682"
-                    Margin="65,213,125,-213" Grid.Column="1" Grid.Row="5"   
+                    Margin="65,228,125,-228" Grid.Column="1" Grid.Row="5"   
                         />
                 <Button
                     Content="Departaments"
                     x:Name="ButDepartament"
-                    Margin="157,213,0,-213" RenderTransformOrigin="0.8,0.857" Grid.Column="1" Grid.Row="5"
+                    Margin="157,228,0,-228" RenderTransformOrigin="0.8,0.857" Grid.Column="1" Grid.Row="5"
                     />
                 <Button
                     Content="Quit"
-                    x:Name="ButQuit" Grid.Column="1" Margin="0,151,150,-151" Grid.Row="5"
+                    x:Name="ButQuit" Grid.Column="1" Margin="35,166,155,-166" Grid.Row="5"
                     />
+                <Button
+                        Content="Add Product"
+                        x:Name="ProBut" Margin="5,166,20,-166" Grid.Row="5"
+                        />
+                <Button
+                        Content="Remove Product"
+                        x:Name="RemPro" Margin="157,166,1,-166" Grid.Row="5" Grid.Column="1"
+                        />
 
             </Grid>
 

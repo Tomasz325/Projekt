@@ -14,6 +14,15 @@ namespace Projekt.Models
         public double Quantity { get; set; }
         public double Price { get; set; }
 
+        public ISet<Suppliers> suppliers { get; set; }
+        public ISet<Departments> departments { get; set; }
+        public Products() 
+        {
+            suppliers = new HashSet<Suppliers>();
+            departments = new HashSet<Departments>();
         }
+        
     }
+    
+}
 

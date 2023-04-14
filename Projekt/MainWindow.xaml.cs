@@ -43,12 +43,11 @@ namespace Projekt
         private async Task ListBrands()
         {
             var brandList = await workercrudservice.ListBrands();
-            DataGridBrand.ItemsSource = brandList.ToList();
+            DataGridBrand.ItemsSource = brandList.ToList().Select(w => new { Id = w.Id, Name = w.Name, Lastname = w.Lastname, shifts = String.Join(",", w.shifts.Select(s => $"{s.Type} : {s.Shours} - {s.Fhours}")), department = String.Join(",", w.departments.Select(d => d.Type) ) });
         }
         private async void ButtonRefresh(object sender, RoutedEventArgs e)
         {
-            var list = (await workercrudservice.ListBrands()).ToList();
-            DataGridBrand.ItemsSource = list;
+            ListBrands();
         }
         private async void ButtonAdd(object sender, RoutedEventArgs e)
         {

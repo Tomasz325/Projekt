@@ -5,7 +5,14 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <ApplicationIcon>Windows.ico</ApplicationIcon>
+    <Title>Projekt_Tomasz_Szpil</Title>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Windows.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />

@@ -16,15 +16,242 @@ namespace Projekt.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.15");
 
+            modelBuilder.Entity("DepartmentsProducts", b =>
+                {
+                    b.Property<int>("departmentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("productsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("departmentsId", "productsId");
+
+                    b.HasIndex("productsId");
+
+                    b.ToTable("DepartmentsProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 1
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 2
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 3
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 4
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 5
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 6
+                        },
+                        new
+                        {
+                            departmentsId = 2,
+                            productsId = 7
+                        },
+                        new
+                        {
+                            departmentsId = 1,
+                            productsId = 8
+                        },
+                        new
+                        {
+                            departmentsId = 1,
+                            productsId = 9
+                        },
+                        new
+                        {
+                            departmentsId = 1,
+                            productsId = 10
+                        },
+                        new
+                        {
+                            departmentsId = 1,
+                            productsId = 11
+                        },
+                        new
+                        {
+                            departmentsId = 3,
+                            productsId = 12
+                        },
+                        new
+                        {
+                            departmentsId = 3,
+                            productsId = 13
+                        },
+                        new
+                        {
+                            departmentsId = 3,
+                            productsId = 14
+                        },
+                        new
+                        {
+                            departmentsId = 4,
+                            productsId = 15
+                        },
+                        new
+                        {
+                            departmentsId = 4,
+                            productsId = 16
+                        });
+                });
+
+            modelBuilder.Entity("DepartmentsWorker", b =>
+                {
+                    b.Property<int>("WorkersId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("departmentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("WorkersId", "departmentsId");
+
+                    b.HasIndex("departmentsId");
+
+                    b.ToTable("DepartmentsWorker");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkersId = 1,
+                            departmentsId = 1
+                        },
+                        new
+                        {
+                            WorkersId = 2,
+                            departmentsId = 2
+                        },
+                        new
+                        {
+                            WorkersId = 3,
+                            departmentsId = 3
+                        },
+                        new
+                        {
+                            WorkersId = 4,
+                            departmentsId = 4
+                        });
+                });
+
+            modelBuilder.Entity("ProductsSuppliers", b =>
+                {
+                    b.Property<int>("productsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("suppliersId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("productsId", "suppliersId");
+
+                    b.HasIndex("suppliersId");
+
+                    b.ToTable("ProductsSuppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            productsId = 1,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 2,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 3,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 4,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 5,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 6,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 7,
+                            suppliersId = 4
+                        },
+                        new
+                        {
+                            productsId = 8,
+                            suppliersId = 3
+                        },
+                        new
+                        {
+                            productsId = 9,
+                            suppliersId = 3
+                        },
+                        new
+                        {
+                            productsId = 10,
+                            suppliersId = 3
+                        },
+                        new
+                        {
+                            productsId = 11,
+                            suppliersId = 3
+                        },
+                        new
+                        {
+                            productsId = 12,
+                            suppliersId = 2
+                        },
+                        new
+                        {
+                            productsId = 13,
+                            suppliersId = 2
+                        },
+                        new
+                        {
+                            productsId = 14,
+                            suppliersId = 2
+                        },
+                        new
+                        {
+                            productsId = 15,
+                            suppliersId = 1
+                        },
+                        new
+                        {
+                            productsId = 16,
+                            suppliersId = 1
+                        });
+                });
+
             modelBuilder.Entity("Projekt.Models.Departments", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("Liability")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -38,25 +265,21 @@ namespace Projekt.Migrations
                         new
                         {
                             Id = 1,
-                            Liability = "Janina Chrostowa",
                             Type = "Warzywno-Owocowy"
                         },
                         new
                         {
                             Id = 2,
-                            Liability = "Jan Nowak",
                             Type = "Napoje i przekąski"
                         },
                         new
                         {
                             Id = 3,
-                            Liability = "Kuba Krzyszczak",
                             Type = "Nabiał"
                         },
                         new
                         {
                             Id = 4,
-                            Liability = "Krystyna Kowalska",
                             Type = "Mięso i wędliny"
                         });
                 });
@@ -196,7 +419,7 @@ namespace Projekt.Migrations
                             Name = "Bakoma Natrualny 400G",
                             Price = 5.0,
                             Quantity = 7.0,
-                            Type = "Yoghurt"
+                            Type = "Nabiał"
                         },
                         new
                         {
@@ -261,7 +484,7 @@ namespace Projekt.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Carsize")
+                    b.Property<string>("Carmodel")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -281,28 +504,28 @@ namespace Projekt.Migrations
                         new
                         {
                             Id = 1,
-                            Carsize = "Duże",
+                            Carmodel = "Iveco Daily",
                             Name = "Sokołów",
                             Type = "Dostawcze"
                         },
                         new
                         {
                             Id = 2,
-                            Carsize = "Średnie",
+                            Carmodel = "Fiat Ducato",
                             Name = "Mlekovita",
                             Type = "Dostawcze"
                         },
                         new
                         {
                             Id = 3,
-                            Carsize = "Małe",
+                            Carmodel = "Skoda Octavia",
                             Name = "Sadowcy",
                             Type = "Osobowe"
                         },
                         new
                         {
                             Id = 4,
-                            Carsize = "Duże",
+                            Carmodel = "MAN TGS 18.460",
                             Name = "Eurocash",
                             Type = "Tir"
                         });
@@ -374,6 +597,103 @@ namespace Projekt.Migrations
                             Name = "Krystyna",
                             Postalcode = "32-700 Bochnia"
                         });
+                });
+
+            modelBuilder.Entity("ShiftsWorker", b =>
+                {
+                    b.Property<int>("shiftsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("workersId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("shiftsId", "workersId");
+
+                    b.HasIndex("workersId");
+
+                    b.ToTable("ShiftsWorker");
+
+                    b.HasData(
+                        new
+                        {
+                            shiftsId = 1,
+                            workersId = 1
+                        },
+                        new
+                        {
+                            shiftsId = 1,
+                            workersId = 2
+                        },
+                        new
+                        {
+                            shiftsId = 2,
+                            workersId = 3
+                        },
+                        new
+                        {
+                            shiftsId = 2,
+                            workersId = 4
+                        });
+                });
+
+            modelBuilder.Entity("DepartmentsProducts", b =>
+                {
+                    b.HasOne("Projekt.Models.Departments", null)
+                        .WithMany()
+                        .HasForeignKey("departmentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt.Models.Products", null)
+                        .WithMany()
+                        .HasForeignKey("productsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DepartmentsWorker", b =>
+                {
+                    b.HasOne("Projekt.Models.Worker", null)
+                        .WithMany()
+                        .HasForeignKey("WorkersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt.Models.Departments", null)
+                        .WithMany()
+                        .HasForeignKey("departmentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProductsSuppliers", b =>
+                {
+                    b.HasOne("Projekt.Models.Products", null)
+                        .WithMany()
+                        .HasForeignKey("productsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt.Models.Suppliers", null)
+                        .WithMany()
+                        .HasForeignKey("suppliersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ShiftsWorker", b =>
+                {
+                    b.HasOne("Projekt.Models.Shifts", null)
+                        .WithMany()
+                        .HasForeignKey("shiftsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Projekt.Models.Worker", null)
+                        .WithMany()
+                        .HasForeignKey("workersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

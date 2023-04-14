@@ -12,6 +12,8 @@ namespace Projekt.Models
         public string Type { get; set; }
         public string Shours { get; set; }
         public string Fhours { get; set; }
+        public ISet<Worker> workers { get; set; }
+        public Shifts() { workers = new HashSet<Worker>(); }
         }
     }
 

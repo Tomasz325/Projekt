@@ -87,7 +87,16 @@
                     Grid.Row="4"
                      Grid.Column="1" Margin="10,0,0,0"
                  />
-
+                <Label
+                    Content="Product ID"
+                    Grid.Row="5"
+                     Grid.Column="0" Grid.ColumnSpan="2" Margin="0,12,228,-12" >
+                </Label>
+                <TextBox
+                    x:Name="txtProductID"
+                    Grid.Row="5"
+                    Grid.Column="1" Margin="10,10,-1,-10"
+                    ></TextBox>
                 <!--Button-->
                 <StackPanel
                      Grid.Row="5"
@@ -153,8 +162,16 @@
                     />
                 <Button
                     Content="Quit"
-                    x:Name="ButQuit" Grid.Column="1" Margin="0,135,150,-135" Grid.Row="5"
+                    x:Name="ButQuit" Grid.Column="1" Margin="0,148,150,-148" Grid.Row="5"
                     />
+                <Button
+                        Content="Add Product"
+                        x:Name="ProBut" Margin="5,103,20,-103" Grid.Row="5"
+                        />
+                <Button
+                        Content="Remove Product"
+                        x:Name="RemPro" Margin="112,103,46,-103" Grid.Row="5" Grid.Column="1"
+                        />
 
             </Grid>
 
